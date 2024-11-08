@@ -5,6 +5,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -85,6 +87,17 @@ public class WeatherAppGUI extends JFrame {
         searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         searchButton.setBounds(375,13,47,45);
 
+        // lógica para pesquisar apertando o botão enter
+        searchTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    searchButton.doClick();
+
+                }
+            }
+        });
+
         // Ação do botão de busca
 
         searchButton.addActionListener(new ActionListener() {
@@ -107,15 +120,19 @@ public class WeatherAppGUI extends JFrame {
 
                 switch(weatherCondition){
                     case "Clear":
+                        getContentPane().setBackground(new java.awt.Color(135, 206, 250)); // Sky blue
                         weatherConditionImage.setIcon(loadImage("src/weather_app_images/clear.png"));
                         break;
                     case "Cloudy":
+                        getContentPane().setBackground(new java.awt.Color(220, 220, 220)); // Light gray
                         weatherConditionImage.setIcon(loadImage("src/weather_app_images/cloudy.png"));
                         break;
                     case "Rain":
+                        getContentPane().setBackground(new java.awt.Color(173, 216, 230)); // Light blue
                         weatherConditionImage.setIcon(loadImage("src/weather_app_images/rain.png"));
                         break;
                     case "Snow":
+                        getContentPane().setBackground(new java.awt.Color(255, 250, 250)); // White
                         weatherConditionImage.setIcon(loadImage("src/weather_app_images/snow.png"));
                         break;
                 }
